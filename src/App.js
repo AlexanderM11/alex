@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Counter from './components/Counter';
 import CounterList from './components/CounterList';
@@ -14,7 +13,9 @@ state={
   sortList:[],
   value:"",
   link:"",
-  linkValue:""
+  linkValue:"",
+  imgArray:[],
+  index:0
 };
 handleCounterAdd(){
   this.setState({
@@ -67,19 +68,50 @@ sortList:splited
   })
 }
 handleChangeLink(event){
-  
   this.setState({
     linkValue: event.target.value
   })
 }
 handleAddImage(){
   let a=this.state.linkValue
-  console.log(this.state.link)
+  let array=[...this.state.imgArray]
+  array.push(a)
   this.setState({
-    link:a
+    
+    imgArray:array,
+    link:array[this.state.index]
   })
 }
-
+handleNext(){
+  if(this.state.index==this.state.imgArray.length-1){
+    let b=0
+    this.setState({
+      index:b,
+      link:this.state.imgArray[b]
+    })
+  }
+  else {
+    let a=this.state.index+1
+    this.setState({
+    index:a,
+    link:this.state.imgArray[a]
+  })
+}}
+handlePrevious(){
+  if(this.state.index==0){
+    let b=this.state.imgArray.length-1
+    this.setState({
+      index:b,
+      link:this.state.imgArray[b]
+    })
+  }
+  else {
+    let a=this.state.index-1
+    this.setState({
+    index:a,
+    link:this.state.imgArray[a]
+  })
+}}
   render(){
     return(
       <div className='App'>
@@ -108,6 +140,8 @@ handleAddImage(){
           linkValue={this.state.linkValue}
           onChangeLink={(event)=>this.handleChangeLink(event)}
           onAddImage={()=>this.handleAddImage()}
+          onNext={()=>this.handleNext()}
+          onPrevious={()=>this.handlePrevious()}
           />
       </div>
     )

@@ -10,6 +10,8 @@ class AddImage extends React.Component{
               <div>
                   <img  src={this.props.link}></img>
               </div>
+              <button onClick={()=>this.props.onNext()}>Next</button>
+              <button onClick={()=>this.props.onPrevious()}>Previous</button>
             </div>
         )
     }
